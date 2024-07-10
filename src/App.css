@@ -1,0 +1,10 @@
+.heading-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#heading-top{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
