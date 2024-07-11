@@ -1,24 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-function Navbar() {
-    
+
+function Navbar({ setCountry }) {
+  const [text, setText] = useState('in');
+
+  const onChangeVal = (evt) => {
+    setText(evt.target.value);
+  };
+
+  const handleSubmit = (evt) => {
+    // evt.preventDefault();
+    console.log("Handled");
+    setCountry(text);
+  };
+
   return (
     <>
-      <nav
-        className="navbar bg-dark border-bottom border-body"
-        data-bs-theme="dark"
-      >
+      <nav className="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="https://www.google.com">
+          <a className="navbar-brand" href="https://www.google.com">
             <img
               src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
               alt="Bootstrap"
               width="35"
               height="35"
             />
-          </Link>
+          </a>
           <Link className="navbar-brand" to="/">
-            <strong style={{'fontFamily':` Georgia, 'Times New Roman', Times, serif`}}>Taza Khabar</strong>
+            <strong style={{ 'fontFamily': `Georgia, 'Times New Roman', Times, serif` }}>Taza Khabar</strong>
           </Link>
           <button
             className="navbar-toggler"
@@ -34,7 +43,7 @@ function Navbar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/" value="Home">
+                <Link className="nav-link active" aria-current="page" to="/">
                   Home
                 </Link>
               </li>
@@ -45,23 +54,22 @@ function Navbar() {
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
-                  value = "News"
                 >
                   News
                 </Link>
                 <ul className="dropdown-menu">
                   <li>
-                    <Link className="dropdown-item" to="/Sports" value="sports" id="sports" >
+                    <Link className="dropdown-item" to="/Sports" id="sports">
                       Sports
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/Business" value="business" id="business" >
+                    <Link className="dropdown-item" to="/Business" id="business">
                       Business
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/Technology" value="technology" id="technology" >
+                    <Link className="dropdown-item" to="/Technology" id="technology">
                       Technology
                     </Link>
                   </li>
@@ -76,12 +84,15 @@ function Navbar() {
                 </ul>
               </li>
             </ul>
-            <form className="d-flex" role="search">
+            <form className="d-flex" role="search" onSubmit={handleSubmit}>
               <input
                 className="form-control me-2"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                id="search-input"
+                onChange={onChangeVal}
+                value={text}
               />
               <button className="btn btn-outline-success" type="submit">
                 Search
@@ -90,8 +101,6 @@ function Navbar() {
           </div>
         </div>
       </nav>
-
-      
     </>
   );
 }
