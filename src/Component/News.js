@@ -3,18 +3,19 @@ import PropTypes from 'prop-types';
 import Spinner from "./Spinner";
 
 function News(props) {
-  let [state, setState] = useState({
+  const [state, setState] = useState({
     articles: [],
     loading: false,
     page: 1,
-    url: props.url,
+    url: `${props.url}${props.country}${props.api}`,
     totalResults: 0,
   });
 
   useEffect(() => {
     const fetchData = async () => {
       setState(prevState => ({ ...prevState, loading: true }));
-      let promise = await fetch(`${props.url}&page=${state.page}&pageSize=${props.pageSize}`);
+      const url = `${state.url}&page=${state.page}&pageSize=${props.pageSize}`;
+      let promise = await fetch(url);
       let data = await promise.json();
       let parsedData = data.articles;
       setState(prevState => ({
@@ -25,15 +26,14 @@ function News(props) {
       }));
     };
     fetchData();
-  }, [state.url]);
+  }, [state.url, state.page, props.pageSize]);
 
-  let handlePrevClick = async () => {
+  const handlePrevClick = async () => {
     console.log("Prev page loading");
-
     const newPage = state.page - 1;
     if (newPage < 1) return;
 
-    const newUrl = `${props.url}&page=${newPage}&pageSize=${props.pageSize}`;
+    const newUrl = `${props.url}${props.country}${props.api}`;
     setState(prevState => ({
       ...prevState,
       page: newPage,
@@ -41,12 +41,12 @@ function News(props) {
     }));
   };
 
-  let handleNextClick = async () => {
+  const handleNextClick = async () => {
     console.log("Next page loading");
     const newPage = state.page + 1;
     if (newPage > Math.ceil(state.totalResults / props.pageSize)) return;
 
-    const newUrl = `${props.url}&page=${newPage}&pageSize=${props.pageSize}`;
+    const newUrl = `${props.url}${props.country}${props.api}`;
     setState(prevState => ({
       ...prevState,
       page: newPage,
@@ -62,9 +62,9 @@ function News(props) {
             {`${props.heading} ${props.countryName}`}
           </h3>
         </div>
-        {state.loading && <Spinner/>}
+        {state.loading && <Spinner />}
         <div className="row">
-          {!state.loading&&state.articles.map((element) => {
+          {!state.loading && state.articles.map((element) => {
             return (
               <div className="col-md-3 mx-4 my-4" key={element.url}>
                 <div className="card" style={{ width: "18rem" }}>
