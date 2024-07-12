@@ -2,10 +2,17 @@ import './App.css';
 import Navbar from './Component/Navbar';
 import Main from './Component/Main';
 import { BrowserRouter } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
+
 function App() {
-  const [country, setCountry] = useState('us');
-  const [countryName,setCountryName] = useState('United States');
+  const [country, setCountry] = useState('in');
+  const [countryName, setCountryName] = useState('India');
+  console.log(country);
+
+  useEffect(() => {
+    console.log(`Country changed to: ${country}`);
+  }, [country]);
+
 
   return (
     <BrowserRouter>
@@ -14,6 +21,5 @@ function App() {
     </BrowserRouter>
   );
 }
-export default App;
 
-//props.url + category + "&" + props.country + props.api
+export default App;

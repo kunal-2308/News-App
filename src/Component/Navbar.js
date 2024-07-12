@@ -2,18 +2,17 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Navbar({ setCountry }) {
-  let [text, setText] = useState('in');
+  const [text, setText] = useState('in');
 
   const onChangeVal = (evt) => {
     setText(evt.target.value);
   };
 
   const handleSubmit = (evt) => {
-    // evt.preventDefault();
-    console.log("Handled");
-    setCountry(text);
+    evt.preventDefault();
+    setCountry(text); // Pass the text back to the App component
   };
-
+  
   return (
     <>
       <nav className="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
@@ -27,7 +26,7 @@ function Navbar({ setCountry }) {
             />
           </a>
           <Link className="navbar-brand" to="/">
-            <strong style={{ 'fontFamily': `Georgia, 'Times New Roman', Times, serif` }}>Taza Khabar</strong>
+            <strong style={{ fontFamily:``,fontSize:'28px' }}>Taza Khabar</strong>
           </Link>
           <button
             className="navbar-toggler"

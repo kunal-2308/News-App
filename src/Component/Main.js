@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Sports from './Sports';
 import Technology from './Technology';
@@ -10,7 +10,13 @@ function Main({ country,countryName }) {
   const [url, setUrl] = useState(`https://newsapi.org/v2/top-headlines?`);
   const[Ccountry,CsetCountry] = useState(`country=${country}`)
   const [api,setApi] = useState('&apiKey=dccbb78423084e6898dd46aa7b4c07b8');
+
   
+  useEffect(()=>{
+    CsetCountry(`country=${country}`);
+  },[country]);
+  
+
   return (
     <Routes>
       <Route exact path='/' element={<News heading="Top News Across " url={url} api={api} pageSize={'6'} countryName = {countryName} country={Ccountry}/>} />

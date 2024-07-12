@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import Spinner from "./Spinner";
+import '/Users/kunal/Desktop/MERN/React/news-app/src/Component/All.css';
 
 function News(props) {
   const [state, setState] = useState({
@@ -9,7 +10,15 @@ function News(props) {
     page: 1,
     url: `${props.url}${props.country}${props.api}`,
     totalResults: 0,
+    heading: `${props.heading}${props.countryName}`,
   });
+
+  useEffect(() => {
+    setState(prevState => ({
+      ...prevState,
+      url: `${props.url}${props.country}${props.api}`,
+    }))
+  }, [props.country]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,12 +30,13 @@ function News(props) {
       setState(prevState => ({
         ...prevState,
         articles: parsedData,
-        totalResults: data.totalResults,
         loading: false,
+        totalResults: parsedData.totalResults,
       }));
     };
     fetchData();
   }, [state.url, state.page, props.pageSize]);
+
 
   const handlePrevClick = async () => {
     console.log("Prev page loading");
@@ -59,7 +69,7 @@ function News(props) {
       <div className="container">
         <div className="heading-div">
           <h3 id="heading-top" className="my-4">
-            {`${props.heading} ${props.countryName}`}
+            {state.heading}
           </h3>
         </div>
         {state.loading && <Spinner />}
@@ -67,7 +77,7 @@ function News(props) {
           {!state.loading && state.articles.map((element) => {
             return (
               <div className="col-md-3 mx-4 my-4" key={element.url}>
-                <div className="card" style={{ width: "18rem", marginRight: "10px" }}>
+                <div className="card position-relative" style={{ width: "18rem", marginRight: "10px" }}>
                   <img
                     src={
                       element.urlToImage
@@ -76,7 +86,11 @@ function News(props) {
                     }
                     className="card-img-top"
                     alt="..."
+                    style={{ marginBottom: '10px' }}
                   />
+                  <span className="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-danger p-2 text-white">
+                    {element.author ? `${element.author}` : 'Unknown Source'}
+                  </span>
                   <div className="card-body">
                     <h5 className="card-title">{element.title.slice(0, 45)}</h5>
                     <p className="card-text">
@@ -85,7 +99,9 @@ function News(props) {
                         : "Read More..."}
                       ...
                     </p>
-                    <p className="card-text"><small className="text-body-secondary">{!`Author : ${element.author}`?`Auhtor : None`:`Author : ${element.author}`} <br /> {`Time : ${element.publishedAt.slice(0,10)}`}</small></p>
+                    <p className="card-text">
+                      {`Time : ${element.publishedAt.slice(0, 10)}`}
+                    </p>
                     <a href={element.url} className="btn btn-dark">
                       Read More &rarr;
                     </a>
@@ -106,7 +122,7 @@ function News(props) {
             &larr; Previous
           </button>
           <button
-          disabled={state.page+1 > Math.ceil(state.totalResults / props.pageSize)}
+            disabled={state.page + 1 > Math.ceil(state.totalResults / props.pageSize)}
             type="button"
             className="btn btn-dark"
             onClick={handleNextClick}
@@ -125,4 +141,3 @@ News.propTypes = {
   url: PropTypes.string.isRequired,
   heading: PropTypes.string.isRequired,
 };
-

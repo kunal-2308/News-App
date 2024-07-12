@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import Spinner from "./Spinner";
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+
 function International(props) {
-    let [state, setState] = useState({
+    const [state, setState] = useState({
         articles: [],
         page: 1,
         url: `${props.url}&category=${props.category}&${props.country}${props.api}`,
@@ -11,7 +12,14 @@ function International(props) {
         loading: false,
     });
 
-    let handlePrevClick = () => {
+    useEffect(() => {
+        setState(prevState => ({
+            ...prevState,
+            url: `${props.url}&category=${props.category}&${props.country}${props.api}`,
+        }))
+    }, [props.country]);
+
+    const handlePrevClick = () => {
         let newPage = state.page - 1;
         if (newPage < 1) {
             return;
@@ -23,7 +31,7 @@ function International(props) {
         }));
     };
 
-    let handleNextClick = () => {
+    const handleNextClick = () => {
         let newPage = state.page + 1;
         if (newPage > Math.ceil(state.totalResults / props.pageSize)) {
             return;
@@ -36,7 +44,7 @@ function International(props) {
     };
 
     useEffect(() => {
-        let fetchData = async () => {
+        const fetchData = async () => {
             try {
                 let finalUrl = `${state.url}&page=${state.page}&pageSize=${props.pageSize}`;
                 setState(prevState => ({ ...prevState, loading: true }));
@@ -72,19 +80,28 @@ function International(props) {
                         {!state.loading && state.articles.map((element) => {
                             return (
                                 <div className="col-md-3 my-3 mx-3" key={element.url}>
-                                    <div className="card" style={{ width: "18rem", marginRight: "10px" }}>
-                                        <img src={
-                                            element.urlToImage
-                                                ? element.urlToImage
-                                                : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT50mHKSr83o2HKeSJbgZmYaYoxcmxd3epXUQ&s"
-                                        } className="card-img-top" alt="..." />
+                                    <div className="card position-relative" style={{ width: "18rem", marginRight: "10px" }}>
+                                        <img
+                                            src={
+                                                element.urlToImage
+                                                    ? element.urlToImage
+                                                    : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT50mHKSr83o2HKeSJbgZmYaYoxcmxd3epXUQ&s"
+                                            }
+                                            className="card-img-top"
+                                            alt="..."
+                                            style={{ marginBottom: '10px' }}
+                                        />
+                                        <span className="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-danger p-2 text-white">
+                                            {element.author ? `${element.author}` : 'Author: None'}
+                                        </span>
                                         <div className="card-body">
                                             <h5 className="card-title">{element.title.slice(0, 44)}</h5>
                                             <p className="card-text">
                                                 {element.description ? element.description.slice(0, 60) : "Read More..."}
                                             </p>
-                                            <p className="card-text"><small className="text-body-secondary">{!`Author : ${element.author}`?`Auhtor : None`:`Author : ${element.author}`} <br /> {`Time : ${element.publishedAt.slice(0,10)}`}</small></p>
-
+                                            <p className="card-text">
+                      {`Time : ${element.publishedAt.slice(0, 10)}`}
+                    </p>
                                             <Link to="/" className="btn btn-dark">
                                                 Read More &rarr;
                                             </Link>
@@ -106,6 +123,12 @@ function International(props) {
 }
 
 export default International;
+
 International.propTypes = {
-    url : PropTypes.string.isRequired,
-}
+    url: PropTypes.string.isRequired,
+    heading: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    country: PropTypes.string.isRequired,
+    api: PropTypes.string.isRequired,
+    pageSize: PropTypes.string.isRequired,
+};
