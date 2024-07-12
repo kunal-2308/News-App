@@ -14,9 +14,9 @@ function Main({ country,countryName }) {
   return (
     <Routes>
       <Route exact path='/' element={<News heading="Top News Across " url={url} api={api} pageSize={'6'} countryName = {countryName} country={Ccountry}/>} />
-      <Route exact path='/Sports' element={<Sports heading="Top Sports News Across " url={url} api={api}countryName = {countryName} category={category} setCategory={setCategory} country={Ccountry}/>} />
-      <Route exact path='/Technology' element={<Technology heading="Top Technology News Across " url={url} api={api} countryName = {countryName} category={category} setCategory={setCategory} country={Ccountry}/>} />
-      <Route exact path='/Business' element={<Business heading="Top Business News Across " url={url} api={api} countryName = {countryName} category={category} setCategory={setCategory} country={Ccountry}/>} />
+      <Route exact path='/Sports' element={<Sports heading="Top Sports News Across " url={url} api={api} pageSize={'6'} countryName = {countryName} category={category} setCategory={setCategory} country={Ccountry}/>} />
+      <Route exact path='/Technology' element={<Technology heading="Top Technology News Across " url={url} api={api} pageSize={'6'} countryName = {countryName} category={category} setCategory={setCategory} country={Ccountry}/>} />
+      <Route exact path='/Business' element={<Business heading="Top Business News Across " url={url} api={api} pageSize={'6'} countryName = {countryName} category={category} setCategory={setCategory} country={Ccountry}/>} />
     </Routes>
   );
 }
