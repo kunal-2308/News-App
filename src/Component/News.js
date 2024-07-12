@@ -67,7 +67,7 @@ function News(props) {
           {!state.loading && state.articles.map((element) => {
             return (
               <div className="col-md-3 mx-4 my-4" key={element.url}>
-                <div className="card" style={{ width: "18rem" }}>
+                <div className="card" style={{ width: "18rem", marginRight: "10px" }}>
                   <img
                     src={
                       element.urlToImage
@@ -85,6 +85,7 @@ function News(props) {
                         : "Read More..."}
                       ...
                     </p>
+                    <p className="card-text"><small className="text-body-secondary">{!`Author : ${element.author}`?`Auhtor : None`:`Author : ${element.author}`} <br /> {`Time : ${element.publishedAt.slice(0,10)}`}</small></p>
                     <a href={element.url} className="btn btn-dark">
                       Read More &rarr;
                     </a>
@@ -124,3 +125,4 @@ News.propTypes = {
   url: PropTypes.string.isRequired,
   heading: PropTypes.string.isRequired,
 };
+

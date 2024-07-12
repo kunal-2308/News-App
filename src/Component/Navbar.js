@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Navbar({ setCountry }) {
-  const [text, setText] = useState('in');
+  let [text, setText] = useState('in');
 
   const onChangeVal = (evt) => {
     setText(evt.target.value);
@@ -77,7 +77,7 @@ function Navbar({ setCountry }) {
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/">
+                    <Link className="dropdown-item" to="/International">
                       International
                     </Link>
                   </li>

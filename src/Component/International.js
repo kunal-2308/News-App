@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import Spinner from "./Spinner";
 import PropTypes from 'prop-types'
-function Technology(props) {
+function International(props) {
     let [state, setState] = useState({
         articles: [],
         page: 1,
@@ -65,7 +65,7 @@ function Technology(props) {
             <div className="container">
                 <div className="heading-div">
                     <h3 id="heading-top" className="my-4">
-                        {`${props.heading} ${props.countryName}`}
+                        {`${props.heading}`}
                     </h3>
                     {state.loading && <Spinner />}
                     <div className="row d-flex justify-content-around">
@@ -105,7 +105,7 @@ function Technology(props) {
     );
 }
 
-export default Technology;
-Technology.propTypes = {
+export default International;
+International.propTypes = {
     url : PropTypes.string.isRequired,
 }

@@ -6,7 +6,7 @@ function Sports(props) {
     let [state, setState] = useState({
         articles: [],
         page: 1,
-        url: `${props.url}${props.category}&${props.country}${props.api}`,
+        url: `${props.url}&category=${props.category}&${props.country}${props.api}`,
         totalResults: 0,
         loading: false,
     });
@@ -83,6 +83,8 @@ function Sports(props) {
                                             <p className="card-text">
                                                 {element.description ? element.description.slice(0, 60) : "Read More..."}
                                             </p>
+                                            <p className="card-text"><small className="text-body-secondary">{!`Author : ${element.author}`?`Auhtor : None`:`Author : ${element.author}`} <br /> {`Time : ${element.publishedAt.slice(0,10)}`}</small></p>
+
                                             <Link to="/" className="btn btn-dark">
                                                 Read More &rarr;
                                             </Link>
