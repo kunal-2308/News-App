@@ -11,7 +11,7 @@ function International(props) {
         totalResults: 0,
         loading: false,
     });
-
+    document.title = `Taza Khabar - ${props.category}`
     useEffect(() => {
         setState(prevState => ({
             ...prevState,

@@ -4,7 +4,7 @@ function Spinner() {
   return (
     <>
     <div className="text-center">
-    <img src={loading} alt="Loading Spinner" />
+    <img className="my-4" src={loading} alt="Loading Spinner" />
     </div>
     
     </>
