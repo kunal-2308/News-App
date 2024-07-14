@@ -45,15 +45,20 @@ function Technology(props) {
     };
 
     useEffect(() => {
+        props.setProgress(15);
         const fetchData = async () => {
             try {
+                props.setProgress(25);
                 let finalUrl = `${state.url}&page=${state.page}&pageSize=${props.pageSize}`;
                 setState(prevState => ({ ...prevState, loading: true }));
                 console.log("Fetching URL:", finalUrl);
+                
                 let promise = await fetch(finalUrl);
+                props.setProgress(50);
                 if (!promise.ok) {
                     throw new Error(`HTTP error! status: ${promise.status}`);
                 }
+                props.setProgress(75);
                 let parsedData = await promise.json();
                 setState(prevState => ({
                     ...prevState,
@@ -61,6 +66,7 @@ function Technology(props) {
                     totalResults: parsedData.totalResults,
                     loading: false,
                 }));
+                props.setProgress(100);
             } catch (error) {
                 console.error("Fetching error:", error);
                 setState(prevState => ({ ...prevState, articles: [], loading: false }));
@@ -72,7 +78,7 @@ function Technology(props) {
     return (
         <>
             <div className="container">
-                <div className="heading-div">
+                <div className="heading-div" style={{margin:'80px'}}>
                     <h3 id="heading-top" className="my-4">
                         {`${props.heading} ${props.countryName}`}
                     </h3>

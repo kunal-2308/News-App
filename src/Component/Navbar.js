@@ -15,7 +15,7 @@ function Navbar({ setCountry }) {
   
   return (
     <>
-      <nav className="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+      <nav className="navbar fixed-top bg-dark border-bottom border-body" data-bs-theme="dark">
         <div className="container-fluid">
           <a className="navbar-brand" href="https://www.google.com">
             <img

@@ -21,18 +21,26 @@ function News(props) {
   }, [props.country]);
 
   useEffect(() => {
+    props.setProgress(15);
     const fetchData = async () => {
       setState(prevState => ({ ...prevState, loading: true }));
       const url = `${state.url}&page=${state.page}&pageSize=${props.pageSize}`;
+    props.setProgress(25);
+      
       let promise = await fetch(url);
+     
+      props.setProgress(50);
       let data = await promise.json();
       let parsedData = data.articles;
+      
+      props.setProgress(75);
       setState(prevState => ({
         ...prevState,
         articles: parsedData,
         loading: false,
         totalResults: parsedData.totalResults,
       }));
+      props.setProgress(100);
     };
     fetchData();
   }, [state.url, state.page, props.pageSize]);
@@ -67,8 +75,8 @@ function News(props) {
   return (
     <>
       <div className="container">
-        <div className="heading-div">
-          <h3 id="heading-top" className="my-4">
+        <div className="heading-div" style={{margin:'80px'}}>
+          <h3 id="heading-top" className="my-4" >
             {state.heading}
           </h3>
         </div>

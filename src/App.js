@@ -3,6 +3,7 @@ import Navbar from './Component/Navbar';
 import Main from './Component/Main';
 import { BrowserRouter } from 'react-router-dom';
 import React, { useState,useEffect } from 'react';
+import LoadingBar from 'react-top-loading-bar'
 
 function App() {
   const [country, setCountry] = useState('in');
@@ -17,6 +18,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar setCountry={setCountry} />
+      
       <Main country={country} countryName={countryName} />
     </BrowserRouter>
   );
